@@ -2,13 +2,13 @@
 import { allMovies, popularMovies } from '#shared/utils/catalog'
 import { searchMovies } from '#shared/utils/search'
 
-useHead({ title: 'moviepick — 영화 3편 고르기' })
+useHead({ title: 'MovieP1ck — 영화 3편 고르기' })
 
 const { picked, pickedIds, isFull, has, add, remove } = usePicks()
-const { show } = useToast()
 
 const query = ref('')
-const results = computed(() => searchMovies(query.value, allMovies).slice(0, 8))
+// R1-2: 제목에 그 글자가 들어간 영화를 모두 보여 준다
+const results = computed(() => searchMovies(query.value, allMovies))
 const noResult = computed(() => query.value.trim() !== '' && results.value.length === 0)
 
 const slots = computed(() => Array.from({ length: MAX_PICKS }, (_, i) => picked.value[i]))
@@ -22,11 +22,8 @@ watch(noResult, (empty) => {
   if (empty) noResultTimer = setTimeout(() => track('search_no_result', { query: query.value.trim() }), 800)
 })
 
+// 3편을 다 채우면 추가 버튼이 꺼져 있어서 여기까지 오지 않는다
 function addMovie(id: string) {
-  if (isFull.value) {
-    show('3편을 모두 골랐어요. 바꾸려면 하나를 빼 주세요')
-    return
-  }
   if (add(id)) query.value = ''
 }
 
@@ -72,7 +69,8 @@ function goResult() {
         </button>
       </div>
 
-      <p v-if="isFull && query" class="mt-3 text-sm text-ink-secondary">
+      <!-- 예외: 3편을 다 채운 뒤에는 추가 버튼을 끄고 하나를 빼라고 안내 -->
+      <p v-if="isFull" class="mt-3 text-sm text-ink-secondary">
         3편을 모두 골랐어요. 다른 영화를 넣으려면 아래에서 하나를 빼 주세요.
       </p>
 
@@ -128,7 +126,7 @@ function goResult() {
     <div class="fixed inset-x-0 bottom-0 z-30 border-t border-fog/60 bg-canvas/95 backdrop-blur">
       <div class="mx-auto max-w-[480px] px-4 py-3 pb-[max(12px,env(safe-area-inset-bottom))]">
         <PillButton variant="primary" block :disabled="!isFull" @click="goResult">
-          {{ isFull ? '내 취향 보기' : `${MAX_PICKS - picked.length}편 더 골라 주세요` }}
+          내 취향 보기
         </PillButton>
       </div>
     </div>

@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'ko' },
-      title: 'moviepick — 영화 취향 찾기',
+      title: 'MovieP1ck — 영화 취향 찾기',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: '좋아했던 영화 3편으로 내 취향을 찾고, 이유가 붙은 추천 3편을 받아 보세요.' },

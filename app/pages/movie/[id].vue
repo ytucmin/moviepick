@@ -5,7 +5,7 @@ import { getMovie, getTag } from '#shared/utils/catalog'
 const route = useRoute()
 const movie = computed(() => getMovie(String(route.params.id)))
 
-useHead(() => ({ title: movie.value ? `moviepick — ${movie.value.title}` : 'moviepick' }))
+useHead(() => ({ title: movie.value ? `MovieP1ck — ${movie.value.title}` : 'MovieP1ck' }))
 
 const { picked, result, has, isWanted, want } = usePicks()
 const { show } = useToast()

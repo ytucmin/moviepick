@@ -2,7 +2,7 @@
 import { josa } from 'es-hangul'
 import { tagPhrase } from '#shared/utils/catalog'
 
-useHead({ title: 'moviepick — 내 취향' })
+useHead({ title: 'MovieP1ck — 내 취향' })
 
 const { picked, result, feedback, isWanted, want } = usePicks()
 const { show } = useToast()
