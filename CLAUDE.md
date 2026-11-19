@@ -14,6 +14,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 6. **설치나 명령 실행이 필요하면** 실행하기 전에 무엇을 왜 하는지 한 줄로 먼저 설명해요.
 7. **API 키, 토큰, 비밀번호 같은 비밀 값은** 코드, 커밋, 대화 어디에도 쓰지 않아요.
 
+## 구현 단계 (PRD 기준 5단계)
+
+진행할 때마다 상태를 고쳐 적어요. 화면 1·2와 추천 규칙은 첫 세팅 때 이미 만들어 두었기 때문에, 2~4단계는 PRD와 하나씩 맞춰 보고 빠진 것을 채우는 단계예요.
+
+| 단계 | 내용 | PRD 근거 | 상태 |
+| --- | --- | --- | --- |
+| 1 | 영화 데이터: 150편 이상 목록, 태그 체계, 시트(CSV) → JSON 변환 스크립트 | §8, §10 일정 1, §11 태그 작업 | 진행 중 |
+| 2 | 화면 1 영화 3편 고르기 점검 | §7 R1-1~R1-7, 예외 처리 | 대기 |
+| 3 | 추천 규칙 점검 | §7 F2 규칙 1~7 | 대기 |
+| 4 | 화면 2 결과 보기 점검 | §7 R2-1~R2-6, 예외 처리 | 대기 |
+| 5 | 측정 이벤트 연결과 배포 | §9, §11 측정 이벤트, 배포 | 대기 (분석 도구 선택 필요) |
+
+`/movie/[id]` 상세 화면은 PRD에 없지만 사용자가 따로 요청해서 만든 화면이에요. 지우거나 넓히기 전에 물어봐요.
+
 ## Project
 
 **moviepick** (영화 취향 찾기): pick 3 liked movies → one-line taste keyword + 3 recommendations with reasons. Specs:
@@ -30,6 +44,7 @@ Node is installed at `C:\Program Files\nodejs` (via winget). If `npm` isn't foun
 
 - `npm run dev` — dev server (port 3000; also `.claude/launch.json` config "moviepick")
 - `npm run generate` — static build to `.output/public`
+- `npm run data` — convert `shared/data/movies.csv` (the editable movie sheet) into `shared/data/movies.json`; validates ids, tags (3–6, must exist in `tags.json`), year/runtime and refuses to write on errors. Edit the CSV, never the JSON by hand.
 - `npm test` — Vitest (`tests/`); single file: `npx vitest run tests/recommend.test.ts`; single test: `npx vitest run -t "PRD 시나리오"`
 - `npx nuxt typecheck` — vue-tsc type check
 - If tests fail with "tsconfig.app.json not found", run `npx nuxt prepare` (generates `.nuxt/`).

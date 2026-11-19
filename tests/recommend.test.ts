@@ -79,4 +79,11 @@ describe('데이터', () => {
     }
     expect(new Set(allMovies.map((m) => m.id)).size).toBe(allMovies.length)
   })
+
+  it('PRD §10 데이터 준비 완료 기준: 150편 이상, 태그 30~40개', async () => {
+    const { allTags } = await import('../shared/utils/catalog')
+    expect(allMovies.length).toBeGreaterThanOrEqual(150)
+    expect(allTags.length).toBeGreaterThanOrEqual(30)
+    expect(allTags.length).toBeLessThanOrEqual(40)
+  })
 })
