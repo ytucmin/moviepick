@@ -2,6 +2,18 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 작업 규칙 (항상 지킬 것)
+
+1. **기준 문서는 `PRD.md`예요.** PRD에 없는 기능은 만들지 않아요. 필요해 보이면 만들기 전에 먼저 물어봐요.
+2. **한 번에 한 단계만 구현해요.** 한 단계가 끝나면 다음 단계로 넘어가지 말고 멈춰요.
+3. **단계가 끝나면 두 가지를 알려 줘요.**
+   - 바꾼 내용
+   - 사용자가 브라우저에서 직접 확인하는 방법 (어느 주소에서, 무엇을 누르면, 무엇이 보여야 하는지)
+4. **사용자가 "확인했다"고 말하면** 그 단계를 커밋하고 GitHub(`ytucmin/moviepick`, 공개 저장소, `main` 브랜치)에 올려요. 확인 전에는 커밋하거나 올리지 않아요.
+5. **설명은 비개발자가 이해할 수 있는 한국어로 해요.** 전문 용어는 쉬운 말로 풀어서 써요.
+6. **설치나 명령 실행이 필요하면** 실행하기 전에 무엇을 왜 하는지 한 줄로 먼저 설명해요.
+7. **API 키, 토큰, 비밀번호 같은 비밀 값은** 코드, 커밋, 대화 어디에도 쓰지 않아요.
+
 ## Project
 
 **moviepick** (영화 취향 찾기): pick 3 liked movies → one-line taste keyword + 3 recommendations with reasons. Specs:
