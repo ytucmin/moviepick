@@ -2,11 +2,22 @@
   <div class="flex min-h-dvh flex-col bg-canvas">
     <!-- nav-bar: 모든 화면을 night 색으로 감싼다 (DESIGN.md) -->
     <header class="sticky top-0 z-40 bg-night">
-      <div class="mx-auto flex h-14 max-w-[480px] items-center px-4">
+      <div class="mx-auto flex h-14 max-w-[480px] items-center justify-between px-4">
         <NuxtLink to="/" class="flex items-center gap-2 text-on-dark">
           <span class="grid size-7 place-items-center rounded-full bg-primary text-xs font-ui text-on-primary">m</span>
           <span class="text-lg font-heading tracking-[0.3px]">MovieP1ck</span>
         </NuxtLink>
+        <!-- 로그인 모양만 (사용자 요청, 동작 없음 · PRD는 로그인 없음) -->
+        <div
+          aria-hidden="true"
+          class="flex h-9 select-none items-center gap-1.5 rounded-pill border border-[rgba(175,178,206,0.36)] bg-[rgba(175,178,206,0.2)] px-4 text-sm font-ui text-on-dark"
+        >
+          <svg viewBox="0 0 20 20" class="size-4" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="10" cy="7" r="3.2" />
+            <path d="M3.8 16.5c1.2-2.9 3.5-4.3 6.2-4.3s5 1.4 6.2 4.3" stroke-linecap="round" />
+          </svg>
+          로그인
+        </div>
       </div>
     </header>
 

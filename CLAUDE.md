@@ -28,6 +28,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `/movie/[id]` 상세 화면은 PRD에 없지만 사용자가 따로 요청해서 만든 화면이에요. 지우거나 넓히기 전에 물어봐요.
 
+헤더 오른쪽의 "로그인" 상자는 PRD(로그인 없음)와 다르지만 사용자가 모양만 요청한 것이에요. 누를 수 없고 아무 동작도 없어요. 실제 로그인 기능으로 바꾸기 전에 반드시 물어봐요.
+
 ## Project
 
 **moviepick** (영화 취향 찾기): pick 3 liked movies → one-line taste keyword + 3 recommendations with reasons. Specs:

@@ -36,9 +36,25 @@ function goResult() {
 <template>
   <div>
     <p class="text-sm font-eyebrow uppercase tracking-[0.28px] text-ink-secondary">Step 1 · 고르기</p>
-    <h1 class="mt-3 text-[30px] leading-[1.15] font-heading tracking-[0.42px] text-ink">
-      좋아했던 영화<br />3편을 골라 주세요
-    </h1>
+    <div class="mt-3 flex items-center justify-between gap-3">
+      <h1 class="text-[30px] leading-[1.15] font-heading tracking-[0.42px] text-ink">
+        좋아했던 영화<br />3편을 골라 주세요
+      </h1>
+      <!-- 꾸밈 그림: 클래퍼보드 -->
+      <svg aria-hidden="true" viewBox="0 0 72 72" class="size-16 shrink-0">
+        <circle cx="36" cy="38" r="32" fill="var(--color-lavender)" />
+        <g transform="rotate(-14 22 26)">
+          <rect x="12" y="20" width="44" height="9" rx="2" fill="var(--color-night)" />
+          <path d="M18 20h6l-4 9h-6zM30 20h6l-4 9h-6zM42 20h6l-4 9h-6z" fill="var(--color-surface)" />
+        </g>
+        <rect x="12" y="32" width="44" height="26" rx="4" fill="var(--color-primary)" />
+        <rect x="12" y="32" width="44" height="7" rx="2" fill="var(--color-night)" />
+        <path d="M18 32h6l-3 7h-6zM30 32h6l-3 7h-6zM42 32h6l-3 7h-6z" fill="var(--color-surface)" />
+        <rect x="18" y="45" width="20" height="3" rx="1.5" fill="var(--color-on-primary)" opacity=".85" />
+        <rect x="18" y="51" width="12" height="3" rx="1.5" fill="var(--color-on-primary)" opacity=".55" />
+        <path d="M60 12l1.6 3.4L65 17l-3.4 1.6L60 22l-1.6-3.4L55 17l3.4-1.6z" fill="var(--color-periwinkle)" />
+      </svg>
+    </div>
     <p class="mt-3 text-[17px] leading-[1.35] font-body text-ink-secondary">
       3편의 공통점으로 취향을 한 줄로 찾아 드리고, 이유가 붙은 영화 3편을 추천해요.
     </p>
