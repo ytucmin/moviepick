@@ -1,0 +1,36 @@
+[
+  { "id": "어두운분위기", "label": "어두운 분위기", "phrase": "어두운 분위기", "category": "분위기" },
+  { "id": "따뜻한분위기", "label": "따뜻한 분위기", "phrase": "따뜻한 분위기", "category": "분위기" },
+  { "id": "잔잔함", "label": "잔잔함", "phrase": "잔잔한 일상", "category": "분위기" },
+  { "id": "유쾌함", "label": "유쾌함", "phrase": "유쾌한 에너지", "category": "분위기" },
+  { "id": "몽환적", "label": "몽환적", "phrase": "몽환적인 세계", "category": "분위기" },
+
+  { "id": "빠른전개", "label": "빠른 전개", "phrase": "빠른 전개", "category": "템포" },
+  { "id": "느린호흡", "label": "느린 호흡", "phrase": "느린 호흡", "category": "템포" },
+  { "id": "화려한액션", "label": "화려한 액션", "phrase": "화려한 액션", "category": "템포" },
+
+  { "id": "심리긴장감", "label": "심리 긴장감", "phrase": "숨막히는 심리 긴장감", "category": "감정" },
+  { "id": "감동", "label": "감동", "phrase": "깊은 감동", "category": "감정" },
+  { "id": "웃김", "label": "웃김", "phrase": "터지는 웃음", "category": "감정" },
+  { "id": "설렘", "label": "설렘", "phrase": "설레는 감정", "category": "감정" },
+  { "id": "공포", "label": "공포", "phrase": "오싹한 공포", "category": "감정" },
+  { "id": "여운", "label": "여운", "phrase": "긴 여운", "category": "감정" },
+
+  { "id": "반전결말", "label": "반전 결말", "phrase": "반전 있는 결말", "category": "이야기 구조" },
+  { "id": "퍼즐전개", "label": "퍼즐 전개", "phrase": "퍼즐 같은 전개", "category": "이야기 구조" },
+  { "id": "열린결말", "label": "열린 결말", "phrase": "열린 결말", "category": "이야기 구조" },
+  { "id": "해피엔딩", "label": "해피엔딩", "phrase": "해피엔딩", "category": "이야기 구조" },
+  { "id": "시간구조", "label": "시간 구조", "phrase": "시간을 비트는 구조", "category": "이야기 구조" },
+
+  { "id": "수사극", "label": "수사극", "phrase": "범인을 쫓는 수사", "category": "소재" },
+  { "id": "성장", "label": "성장", "phrase": "성장 이야기", "category": "소재" },
+  { "id": "가족", "label": "가족", "phrase": "가족 이야기", "category": "소재" },
+  { "id": "사랑", "label": "사랑", "phrase": "사랑 이야기", "category": "소재" },
+  { "id": "복수", "label": "복수", "phrase": "복수극", "category": "소재" },
+  { "id": "사회비판", "label": "사회 비판", "phrase": "사회를 꼬집는 시선", "category": "소재" },
+  { "id": "공상과학", "label": "SF", "phrase": "SF 상상력", "category": "소재" },
+  { "id": "생존", "label": "생존", "phrase": "생존 드라마", "category": "소재" },
+  { "id": "범죄", "label": "범죄", "phrase": "범죄의 세계", "category": "소재" },
+  { "id": "음악", "label": "음악", "phrase": "음악", "category": "소재" },
+  { "id": "우정", "label": "우정", "phrase": "우정", "category": "소재" }
+]
