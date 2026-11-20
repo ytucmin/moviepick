@@ -53,7 +53,8 @@ function goBack() {
 </script>
 
 <template>
-  <div>
+  <!-- shortcut: 넓은 화면 배치 전까지 가운데 좁은 기둥 유지, 화면 3 웹 배치 때 제거 -->
+  <div class="lg:mx-auto lg:max-w-[480px]">
     <button
       type="button"
       class="-ml-2 inline-flex h-11 items-center gap-1 rounded-pill px-2 font-ui text-ink-secondary hover:text-ink"
@@ -73,8 +74,8 @@ function goBack() {
         <p class="text-sm font-eyebrow uppercase tracking-[0.28px] text-ink-secondary">
           {{ rank ? `Step 3 · 추천 ${rank}` : has(movie.id) ? '내가 고른 영화' : '영화 정보' }}
         </p>
-        <h1 class="mt-3 text-[34px] leading-[1.15] font-heading tracking-[0.42px] text-ink">{{ movie.title }}</h1>
-        <p v-if="movie.aliases?.length" class="mt-2 text-sm text-slate">{{ movie.aliases[0] }}</p>
+        <h1 class="mt-3 text-[34px] leading-[1.15] font-bold tracking-[0.42px] text-ink">{{ movie.title }}</h1>
+        <p v-if="movie.aliases?.length" class="mt-2 text-sm font-bold text-slate">{{ movie.aliases[0] }}</p>
       </header>
 
       <dl class="mt-6 grid grid-cols-3 divide-x divide-fog/70 rounded-md bg-surface py-4 text-center">

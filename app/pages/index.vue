@@ -34,14 +34,17 @@ function goResult() {
 </script>
 
 <template>
+  <!-- 넓은 화면(lg 이상): 왼쪽 고르기 / 오른쪽 고른 영화. 휴대폰은 한 줄 그대로 -->
+  <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start lg:gap-14">
   <div>
     <p class="text-sm font-eyebrow uppercase tracking-[0.28px] text-ink-secondary">Step 1 · 고르기</p>
     <div class="mt-3 flex items-center justify-between gap-3">
-      <h1 class="text-[30px] leading-[1.15] font-heading tracking-[0.42px] text-ink">
+      <!-- 사용자 요청으로 굵게 (DESIGN.md 기준 500 초과) -->
+      <h1 class="text-[34px] leading-[1.15] font-bold tracking-[0.42px] text-ink lg:text-[44px]">
         좋아했던 영화<br />3편을 골라 주세요
       </h1>
       <!-- 꾸밈 그림: 클래퍼보드 -->
-      <svg aria-hidden="true" viewBox="0 0 72 72" class="size-16 shrink-0">
+      <svg aria-hidden="true" viewBox="0 0 72 72" class="size-20 shrink-0 lg:size-28">
         <circle cx="36" cy="38" r="32" fill="var(--color-lavender)" />
         <g transform="rotate(-14 22 26)">
           <rect x="12" y="20" width="44" height="9" rx="2" fill="var(--color-night)" />
@@ -72,7 +75,7 @@ function goResult() {
           enterkeyhint="search"
           autocomplete="off"
           placeholder="제목 또는 초성으로 검색 (예: ㄴㄹㅊㅇ)"
-          class="h-full min-w-0 flex-1 bg-transparent font-ui text-ink outline-none placeholder:text-slate"
+          class="h-full min-w-0 flex-1 bg-transparent font-ui text-ink outline-none placeholder:text-slate/60"
         />
         <button
           v-if="query"
@@ -87,7 +90,7 @@ function goResult() {
 
       <!-- 예외: 3편을 다 채운 뒤에는 추가 버튼을 끄고 하나를 빼라고 안내 -->
       <p v-if="isFull" class="mt-3 text-sm text-ink-secondary">
-        3편을 모두 골랐어요. 다른 영화를 넣으려면 아래에서 하나를 빼 주세요.
+        3편을 모두 골랐어요. 다른 영화를 넣으려면 고른 영화에서 하나를 빼 주세요.
       </p>
 
       <ul v-if="results.length" class="mt-2 divide-y divide-fog/70 rounded-md bg-surface px-4">
@@ -124,8 +127,10 @@ function goResult() {
       </div>
     </section>
 
-    <!-- 고른 영화 슬롯 (R1-1, R1-4) -->
-    <section class="mt-10">
+  </div>
+
+    <!-- 고른 영화 슬롯 (R1-1, R1-4). 넓은 화면에서는 오른쪽에 고정 -->
+    <section class="mt-10 lg:sticky lg:top-24 lg:mt-0 lg:rounded-md lg:bg-surface lg:p-6">
       <div class="flex items-baseline justify-between">
         <h2 class="text-lg font-heading text-ink">고른 영화</h2>
         <p class="font-ui text-ink-secondary" aria-live="polite">
@@ -135,11 +140,15 @@ function goResult() {
       <ol class="mt-4 space-y-2">
         <PickSlot v-for="(m, i) in slots" :key="m?.id ?? `empty-${i}`" :index="i" :movie="m" @remove="m && remove(m.id)" />
       </ol>
+      <!-- 넓은 화면용 CTA (R1-5) -->
+      <div class="mt-6 hidden lg:block">
+        <PillButton variant="primary" block :disabled="!isFull" @click="goResult">내 취향 보기</PillButton>
+      </div>
     </section>
 
-    <!-- 하단 고정 CTA (R1-5) -->
-    <div class="h-20" aria-hidden="true" />
-    <div class="fixed inset-x-0 bottom-0 z-30 border-t border-fog/60 bg-canvas/95 backdrop-blur">
+    <!-- 휴대폰용 하단 고정 CTA (R1-5) -->
+    <div class="h-20 lg:hidden" aria-hidden="true" />
+    <div class="fixed inset-x-0 bottom-0 z-30 border-t border-fog/60 bg-canvas/95 backdrop-blur lg:hidden">
       <div class="mx-auto max-w-[480px] px-4 py-3 pb-[max(12px,env(safe-area-inset-bottom))]">
         <PillButton variant="primary" block :disabled="!isFull" @click="goResult">
           내 취향 보기

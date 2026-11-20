@@ -11,17 +11,20 @@ const { show } = useToast()
 if (!result.value) await navigateTo('/', { replace: true })
 
 // 취향 키워드 문장: 태그 문구만 강조해서 보여 준다 (R2-2)
-const keywordParts = computed(() => {
+const keywordParts = computed<{ text: string; em?: boolean; br?: boolean }[]>(() => {
   const tags = result.value?.keywordTags ?? []
   const [a, b] = tags.map(tagPhrase)
   if (!a) return []
-  if (!b) return [{ text: '당신은 ' }, { text: a, em: true }, { text: `${josa.pick(a, '을/를')} 좋아하는 사람이에요` }]
+  // "좋아하는 사람이에요"는 항상 새 줄에 한 덩어리로 (사용자 요청)
+  const ending = { text: '좋아하는 사람이에요', br: true }
+  if (!b) return [{ text: '당신은 ' }, { text: a, em: true }, { text: josa.pick(a, '을/를') }, ending]
   return [
     { text: '당신은 ' },
     { text: a, em: true },
     { text: `${josa.pick(a, '와/과')} ` },
     { text: b, em: true },
-    { text: `${josa.pick(b, '을/를')} 좋아하는 사람이에요` },
+    { text: josa.pick(b, '을/를') },
+    ending,
   ]
 })
 
@@ -45,7 +48,8 @@ function repick() {
 </script>
 
 <template>
-  <div v-if="result">
+  <!-- shortcut: 넓은 화면 배치 전까지 가운데 좁은 기둥 유지, 화면 2 웹 배치 때 제거 -->
+  <div v-if="result" class="lg:mx-auto lg:max-w-[480px]">
     <!-- 고른 3편 (R2-1) -->
     <p class="text-sm font-eyebrow uppercase tracking-[0.28px] text-ink-secondary">Step 2 · 내 취향</p>
     <ul class="mt-3 flex flex-wrap gap-1.5" aria-label="고른 영화">
@@ -57,9 +61,11 @@ function repick() {
     <!-- 취향 키워드 (R2-2) -->
     <section class="mt-8">
       <p v-if="result.diverse" class="mb-3 text-[15px] text-ink-secondary">고르신 3편은 취향이 다양하네요!</p>
-      <h1 class="text-[28px] leading-[1.25] font-heading tracking-[0.42px] text-ink">
+      <!-- 취향 태그는 크게(38px), 나머지 문장은 조금 작게 (사용자 요청) -->
+      <h1 class="text-[26px] leading-[1.35] font-bold tracking-[0.42px] text-ink">
         <template v-for="(p, i) in keywordParts" :key="i">
-          <span v-if="p.em" class="text-primary">{{ p.text }}</span>
+          <span v-if="p.em" class="text-[38px] text-primary">{{ p.text }}</span>
+          <template v-else-if="p.br"><br /><span class="whitespace-nowrap">{{ p.text }}</span></template>
           <template v-else>{{ p.text }}</template>
         </template>
       </h1>
