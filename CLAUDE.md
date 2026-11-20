@@ -59,7 +59,7 @@ Nuxt 4, `ssr: false` (pure SPA). Two source roots:
 
 - `shared/` — framework-free logic, importable from app code as `#shared/...` and from tests by relative path (tests can't resolve `#shared`, so files inside `shared/` import each other relatively).
   - `data/movies.json`, `data/tags.json` — the catalog. Tag ids are Korean strings (`반전결말`); each tag has `label` (chip), `phrase` (used inside sentences) and `category`. `tests/recommend.test.ts` validates every movie has 3–6 known tags.
-  - `utils/recommend.ts` — pure `recommend(selected, movies, phrase?)` implementing PRD F2. Ordering ties: tags by first appearance in the selected movies; movies by score → `popular` → list order. Sentences use es-hangul `josa` for 와/과, 을/를, 이/가.
+  - `utils/recommend.ts` — pure `recommend(selected, movies, phrase?)` implementing PRD F2. Ordering ties: tags by first appearance in the selected movies **sorted by id** (so pick order never changes the result — PRD F2 rule 4, QA-01); movies by score → `popular` → list order. Sentences use es-hangul `josa` for 와/과, 을/를, 이/가.
   - `utils/search.ts` — substring search on title + `aliases` (spaces ignored), and 초성 search when the query is all choseong.
 - `app/` — UI.
   - `composables/usePicks.ts` — single `useState` store for picked ids, keyword feedback and wanted ids; `result` is computed from picks. State survives navigation so "다시 고르기" keeps picks (R2-6); it is not persisted across reloads.

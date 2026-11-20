@@ -22,16 +22,17 @@ export function reasonSentence(ids: TagId[], phrase: (id: TagId) => string = tag
 
 /**
  * PRD F2 추천 규칙. 순수 함수이며 난수를 쓰지 않아 같은 입력이면 항상 같은 결과를 낸다.
- * 같은 개수일 때 태그 순서는 고른 영화에서 처음 나온 순서를 따른다.
+ * 같은 개수일 때 태그 순서는 고른 영화를 id 순서로 놓았을 때 처음 나온 순서를 따른다.
  */
 export function recommend(
   selected: Movie[],
   movies: Movie[],
   phrase: (id: TagId) => string = tagPhrase,
 ): RecommendResult {
-  // 태그별 등장 횟수 (영화 안의 중복은 1번으로), 첫 등장 순서 유지
+  // 태그별 등장 횟수 (영화 안의 중복은 1번으로), 첫 등장 순서 유지.
+  // 고른 순서가 결과를 바꾸지 않도록 영화 id 순서로 훑는다 (PRD F2 규칙 4)
   const counts = new Map<TagId, number>()
-  for (const movie of selected) {
+  for (const movie of [...selected].sort((a, b) => a.id.localeCompare(b.id))) {
     for (const tag of new Set(movie.tags)) {
       counts.set(tag, (counts.get(tag) ?? 0) + 1)
     }

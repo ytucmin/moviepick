@@ -35,6 +35,15 @@ describe('recommend (PRD F2)', () => {
     expect(b.items.map((i) => i.movie.id)).toEqual(a.items.map((i) => i.movie.id))
   })
 
+  it('고르는 순서를 바꿔도 결과가 같다 (QA-01)', () => {
+    const permutations = <T,>([a, b, c]: T[]) => [[a, b, c], [a, c, b], [b, a, c], [b, c, a], [c, a, b], [c, b, a]]
+    const byTitle = (t: string) => allMovies.find((m) => m.title === t)!
+    for (const titles of [['라라랜드', '인셉션', '기생충'], ['나를 찾아줘', '셔터 아일랜드', '올드보이']]) {
+      const results = permutations(titles.map(byTitle)).map((sel) => recommend(sel, allMovies))
+      for (const r of results) expect(r).toEqual(results[0])
+    }
+  })
+
   it('공통 태그가 없으면 가장 많이 나온 태그 2개를 쓴다', () => {
     const selected = [fake('a', ['x', 'y']), fake('b', ['z']), fake('c', ['w'])]
     const pool = [...selected, fake('d', ['y']), fake('e', ['x', 'y']), fake('f', ['q'])]
