@@ -48,8 +48,7 @@ function repick() {
 </script>
 
 <template>
-  <!-- shortcut: 넓은 화면 배치 전까지 가운데 좁은 기둥 유지, 화면 2 웹 배치 때 제거 -->
-  <div v-if="result" class="lg:mx-auto lg:max-w-[480px]">
+  <div v-if="result">
     <!-- 고른 3편 (R2-1) -->
     <p class="text-sm font-eyebrow uppercase tracking-[0.28px] text-ink-secondary">Step 2 · 내 취향</p>
     <ul class="mt-3 flex flex-wrap gap-1.5" aria-label="고른 영화">
@@ -62,12 +61,16 @@ function repick() {
     <section class="mt-8">
       <p v-if="result.diverse" class="mb-3 text-[15px] text-ink-secondary">고르신 3편은 취향이 다양하네요!</p>
       <!-- 취향 태그는 크게(38px), 나머지 문장은 조금 작게 (사용자 요청) -->
-      <h1 class="text-[26px] leading-[1.35] font-bold tracking-[0.42px] text-ink">
-        <template v-for="(p, i) in keywordParts" :key="i">
-          <span v-if="p.em" class="text-[38px] text-primary">{{ p.text }}</span>
-          <template v-else-if="p.br"><br /><span class="whitespace-nowrap">{{ p.text }}</span></template>
-          <template v-else>{{ p.text }}</template>
-        </template>
+      <h1 class="text-[26px] leading-[1.35] font-bold tracking-[0.42px] text-ink lg:text-[32px]">
+        <!-- 넓은 화면: "당신은" / 취향 문구 한 줄 / "좋아하는 사람이에요" (사용자 요청) -->
+        {{ keywordParts[0]?.text }}<br class="hidden lg:inline" />
+        <span class="lg:whitespace-nowrap">
+          <template v-for="(p, i) in keywordParts.slice(1, -1)" :key="i">
+            <span v-if="p.em" class="text-[38px] text-primary min-[400px]:text-[40px] lg:text-[56px]">{{ p.text }}</span>
+            <template v-else>{{ p.text }}</template>
+          </template>
+        </span>
+        <br /><span class="whitespace-nowrap">{{ keywordParts.at(-1)?.text }}</span>
       </h1>
 
       <!-- 맞아요 / 아니에요 (R2-3) -->
@@ -83,7 +86,7 @@ function repick() {
       <h2 class="text-lg font-heading text-ink">이 취향이라면, 이 영화</h2>
       <p class="mt-1 text-sm text-ink-secondary">카드를 누르면 자세히 볼 수 있어요</p>
 
-      <div class="mt-5 space-y-3">
+      <div class="mt-5 space-y-3 lg:grid lg:grid-cols-3 lg:gap-5 lg:space-y-0">
         <RecommendCard
           v-for="(item, i) in result.items"
           :key="item.movie.id"
@@ -101,7 +104,7 @@ function repick() {
     </section>
 
     <!-- 다시 고르기 (R2-6) -->
-    <div class="mt-10">
+    <div class="mt-10 lg:mx-auto lg:max-w-sm">
       <PillButton variant="outline" block @click="repick">다시 고르기</PillButton>
       <p class="mt-2 text-center text-xs text-slate">고른 3편은 그대로 남아 있어요</p>
     </div>

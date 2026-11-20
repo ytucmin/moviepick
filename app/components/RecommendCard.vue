@@ -10,34 +10,27 @@ const shownTags = computed(() => {
   return [...new Set([...matchedTags, ...movie.tags])].slice(0, 3)
 })
 
-// 포스터 대신 장르 분위기로 색을 고른다 (외부 이미지 없음, PRD §5)
-const DARK = ['스릴러', '미스터리', '범죄', '공포', '전쟁']
-const SOFT = ['로맨스', '드라마', '뮤지컬', '애니메이션', '코미디']
-const tone = computed(() => {
-  const g = props.item.movie.genre
-  if (DARK.includes(g)) return 'bg-linear-to-br from-night to-primary text-on-dark'
-  if (SOFT.includes(g)) return 'bg-linear-to-br from-periwinkle to-lavender text-ink'
-  return 'bg-linear-to-br from-primary to-periwinkle text-on-primary'
-})
+const tone = computed(() => genreTone(props.item.movie.genre))
 </script>
 
 <template>
-  <article class="flex gap-4 rounded-md bg-lavender p-4">
+  <!-- 휴대폰: 타일 왼쪽 / 넓은 화면: 타일 위, 카드 3장 나란히 -->
+  <article class="flex gap-4 rounded-md bg-lavender p-4 lg:flex-col lg:p-5">
     <!-- 순위 포스터 타일 -->
     <NuxtLink
       :to="`/movie/${item.movie.id}`"
-      :class="['relative flex aspect-[2/3] w-[104px] shrink-0 flex-col justify-between overflow-hidden rounded-sm p-2.5', tone]"
+      :class="['relative flex aspect-[2/3] w-[104px] shrink-0 flex-col justify-between overflow-hidden rounded-sm p-2.5 lg:aspect-[4/3] lg:w-full lg:p-4', tone]"
       :aria-label="`추천 ${rank}위 ${item.movie.title} 자세히 보기`"
     >
-      <span class="text-[11px] font-eyebrow tracking-[0.28px] opacity-80">{{ item.movie.genre }}</span>
-      <span class="line-clamp-3 text-[15px] leading-tight font-heading">{{ item.movie.title }}</span>
-      <span aria-hidden="true" class="-mb-3 -ml-1 text-[64px] leading-none font-heading italic opacity-90">{{ rank }}</span>
+      <span class="text-[11px] font-eyebrow tracking-[0.28px] opacity-80 lg:text-xs">{{ item.movie.genre }}</span>
+      <span class="line-clamp-3 text-[15px] leading-tight font-heading lg:text-xl">{{ item.movie.title }}</span>
+      <span aria-hidden="true" class="-mb-3 -ml-1 text-[64px] leading-none font-heading italic opacity-90 lg:text-[96px]">{{ rank }}</span>
     </NuxtLink>
 
     <div class="flex min-w-0 flex-1 flex-col">
       <NuxtLink :to="`/movie/${item.movie.id}`" class="group block">
         <p class="text-sm font-eyebrow tracking-[0.28px] text-ink-secondary">추천 {{ rank }}</p>
-        <h3 class="mt-1 text-[20px] leading-tight font-bold tracking-[0.3px] text-ink group-hover:text-primary">
+        <h3 class="mt-1 text-[24px] leading-tight font-bold lg:text-[26px] tracking-[0.3px] text-ink group-hover:text-primary">
           {{ item.movie.title }}
           <span aria-hidden="true" class="text-base text-ink-secondary group-hover:text-primary">›</span>
         </h3>
