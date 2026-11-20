@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { josa } from 'es-hangul'
 import { getMovie, getTag, tagPhrase } from '#shared/utils/catalog'
+import { objectParticle } from '#shared/utils/particle'
 
 const route = useRoute()
 const movie = computed(() => getMovie(String(route.params.id)))
@@ -52,7 +53,7 @@ function onWant() {
     want(m.id)
     track('want_click', { movieId: m.id, from: 'detail' })
   }
-  show(`「${m.title}」${josa.pick(m.title, '을/를')} 보고 싶은 영화에 담았어요. OTT에서 검색해 보세요`)
+  show(`「${m.title}」${objectParticle(m.title)} 보고 싶은 영화에 담았어요. OTT에서 검색해 보세요`)
 }
 
 function goBack() {

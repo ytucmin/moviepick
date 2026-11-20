@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { josa } from 'es-hangul'
 import { tagPhrase } from '#shared/utils/catalog'
+import { objectParticle } from '#shared/utils/particle'
 
 useHead({ title: 'MovieP1ck — 내 취향' })
 
@@ -38,7 +39,7 @@ function onWant(id: string, title: string) {
     want(id)
     track('want_click', { movieId: id })
   }
-  show(`「${title}」${josa.pick(title, '을/를')} 보고 싶은 영화에 담았어요. OTT에서 검색해 보세요`)
+  show(`「${title}」${objectParticle(title)} 보고 싶은 영화에 담았어요. OTT에서 검색해 보세요`)
 }
 
 function repick() {
