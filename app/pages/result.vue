@@ -75,9 +75,13 @@ function repick() {
 
       <!-- 맞아요 / 아니에요 (R2-3) -->
       <div class="mt-5 flex items-center gap-2">
-        <PillButton size="sm" :pressed="feedback === 'yes'" @click="sendFeedback('yes')">맞아요</PillButton>
-        <PillButton size="sm" :pressed="feedback === 'no'" @click="sendFeedback('no')">아니에요</PillButton>
-        <p v-if="feedback" class="ml-1 text-sm text-ink-secondary">알려 주셔서 고마워요</p>
+        <PillButton size="sm" :pressed="feedback === 'yes'" @click="sendFeedback('yes')">
+          맞아요 <span aria-hidden="true" class="font-bold text-primary">O</span>
+        </PillButton>
+        <PillButton size="sm" :pressed="feedback === 'no'" @click="sendFeedback('no')">
+          아니에요 <span aria-hidden="true" class="font-bold text-slate">X</span>
+        </PillButton>
+        <p v-if="feedback" class="ml-1 text-sm text-slate/70">알려 주셔서 고마워요</p>
       </div>
     </section>
 

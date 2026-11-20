@@ -86,4 +86,9 @@ describe('데이터', () => {
     expect(allTags.length).toBeGreaterThanOrEqual(30)
     expect(allTags.length).toBeLessThanOrEqual(40)
   })
+
+  it('모든 태그에 이모지가 있다', async () => {
+    const { allTags } = await import('../shared/utils/catalog')
+    for (const t of allTags) expect(t.emoji, t.id).toBeTruthy()
+  })
 })

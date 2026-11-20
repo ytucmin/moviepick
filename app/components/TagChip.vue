@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { tagLabel } from '#shared/utils/catalog'
+import { getTag, tagLabel } from '#shared/utils/catalog'
 
 withDefaults(defineProps<{ tag: string; highlight?: boolean; onCard?: boolean }>(), {
   highlight: false,
@@ -10,7 +10,7 @@ withDefaults(defineProps<{ tag: string; highlight?: boolean; onCard?: boolean }>
 <template>
   <span
     :class="[
-      'inline-flex items-center rounded-xs px-2 py-1 text-xs font-ui leading-none tracking-[0.24px]',
+      'inline-flex items-center gap-1 rounded-xs px-2 py-1 text-xs font-ui leading-none tracking-[0.24px]',
       highlight
         ? 'bg-primary/12 text-primary'
         : onCard
@@ -18,6 +18,6 @@ withDefaults(defineProps<{ tag: string; highlight?: boolean; onCard?: boolean }>
           : 'bg-lavender text-ink-secondary',
     ]"
   >
-    #{{ tagLabel(tag) }}
+    #{{ tagLabel(tag) }}<span v-if="getTag(tag)?.emoji" aria-hidden="true">{{ getTag(tag)?.emoji }}</span>
   </span>
 </template>

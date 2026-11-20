@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { josa } from 'es-hangul'
-import { getMovie, getTag } from '#shared/utils/catalog'
+import { getMovie, getTag, tagPhrase } from '#shared/utils/catalog'
 
 const route = useRoute()
 const movie = computed(() => getMovie(String(route.params.id)))
@@ -11,6 +11,14 @@ const { picked, result, has, isWanted, want } = usePicks()
 const { show } = useToast()
 
 const recItem = computed(() => result.value?.items.find((i) => i.movie.id === movie.value?.id))
+
+// 추천 이유 문장(reasonSentence와 같은 모양)에서 태그 문구만 보라색으로
+const reasonParts = computed<{ text: string; em?: boolean }[]>(() => {
+  const [a, b] = (recItem.value?.matchedTags.slice(0, 2) ?? []).map(tagPhrase)
+  if (!a) return []
+  if (!b) return [{ text: a, em: true }, { text: `${josa.pick(a, '이/가')} 겹쳐요` }]
+  return [{ text: a, em: true }, { text: `${josa.pick(a, '와/과')} ` }, { text: b, em: true }, { text: `${josa.pick(b, '이/가')} 겹쳐요` }]
+})
 const rank = computed(() => (recItem.value ? result.value!.items.indexOf(recItem.value) + 1 : 0))
 
 // 고른 영화와 겹치는 공통 태그별로, 그 태그를 가진 내 영화를 보여 준다
@@ -107,12 +115,17 @@ function goBack() {
 
       <!-- 왜 추천했나요? -->
       <section v-if="overlaps.length" class="mt-8 rounded-md bg-lavender p-6">
-        <h2 class="text-[22px] font-heading text-ink">왜 추천했나요?</h2>
-        <p v-if="recItem" class="mt-2 text-[21px] leading-snug font-body text-ink">{{ recItem.reason }}</p>
+        <h2 class="text-[25px] font-bold text-ink">왜 추천했나요?</h2>
+        <p v-if="recItem" class="mt-2 text-[21px] leading-snug font-bold text-ink">
+          <template v-for="(p, i) in reasonParts" :key="i">
+            <span v-if="p.em" class="text-primary">{{ p.text }}</span>
+            <template v-else>{{ p.text }}</template>
+          </template>
+        </p>
         <ul class="mt-5 space-y-4">
           <li v-for="o in overlaps" :key="o.tag">
-            <TagChip :tag="o.tag" highlight class="text-[15px]!" />
-            <p class="mt-2 text-[17px] text-ink-secondary">
+            <TagChip :tag="o.tag" highlight class="text-[17px]!" />
+            <p class="mt-2 text-[20px] text-ink-secondary">
               <span class="text-ink">{{ o.phrase }}</span> — {{ o.from.join(', ') }}에도 있어요
             </p>
           </li>
@@ -121,12 +134,12 @@ function goBack() {
 
       <!-- 태그 -->
       <section class="mt-8">
-        <h2 class="text-[22px] font-heading text-ink">이 영화의 취향 태그</h2>
+        <h2 class="text-[25px] font-heading text-ink">이 영화의 취향 태그</h2>
         <dl class="mt-4 space-y-3">
           <div v-for="[cat, tags] in tagGroups" :key="cat" class="flex items-start gap-3">
-            <dt class="w-28 shrink-0 pt-1 text-[15px] tracking-[0.24px] text-slate">{{ cat }}</dt>
+            <dt class="w-32 shrink-0 pt-1 text-[17px] tracking-[0.24px] text-slate">{{ cat }}</dt>
             <dd class="flex flex-wrap gap-1.5">
-              <TagChip v-for="t in tags" :key="t" :tag="t" :highlight="overlaps.some((o) => o.tag === t)" class="text-[15px]!" />
+              <TagChip v-for="t in tags" :key="t" :tag="t" :highlight="overlaps.some((o) => o.tag === t)" class="text-[17px]!" />
             </dd>
           </div>
         </dl>

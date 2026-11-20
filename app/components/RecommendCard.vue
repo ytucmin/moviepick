@@ -44,7 +44,12 @@ const tone = computed(() => genreTone(props.item.movie.genre))
       </div>
       <div class="mt-auto pt-4">
         <PillButton size="sm" :pressed="wanted" @click="$emit('want')">
-          {{ wanted ? '✓ 보고 싶어요' : '보고 싶어요' }}
+          보고 싶어요
+          <!-- 엄지 척: 담으면 채워진다 -->
+          <svg aria-hidden="true" viewBox="0 0 20 20" class="size-4" :fill="wanted ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+            <path d="M2.5 9H6v7.5H2.5z" />
+            <path d="M6 9l3-6c1.3 0 2.2 1 2.2 2.2V7.5h4.1a1.6 1.6 0 0 1 1.6 1.9l-1.1 5.6a1.8 1.8 0 0 1-1.8 1.5H6" />
+          </svg>
         </PillButton>
       </div>
     </div>

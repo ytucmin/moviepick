@@ -4,6 +4,8 @@ export interface Tag {
   id: TagId
   /** 칩에 보여 줄 짧은 이름 */
   label: string
+  /** 칩 앞에 붙는 작은 그림 */
+  emoji: string
   /** 문장 틀에 넣을 문구 (예: 반전결말 → "반전 있는 결말") */
   phrase: string
   category: string
