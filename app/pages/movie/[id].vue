@@ -100,16 +100,16 @@ function goBack() {
 
       <dl class="mt-6 grid grid-cols-3 divide-x divide-fog/70 rounded-md bg-surface py-4 text-center">
         <div>
-          <dt class="text-xs tracking-[0.24px] text-slate">개봉</dt>
-          <dd class="mt-1 font-ui text-ink">{{ movie.year }}</dd>
+          <dt class="text-sm tracking-[0.24px] text-slate">개봉</dt>
+          <dd class="mt-1 text-xl font-ui text-ink">{{ movie.year }}</dd>
         </div>
         <div>
-          <dt class="text-xs tracking-[0.24px] text-slate">장르</dt>
-          <dd class="mt-1 font-ui text-ink">{{ movie.genre }}</dd>
+          <dt class="text-sm tracking-[0.24px] text-slate">장르</dt>
+          <dd class="mt-1 text-xl font-ui text-ink">{{ movie.genre }}</dd>
         </div>
         <div>
-          <dt class="text-xs tracking-[0.24px] text-slate">러닝타임</dt>
-          <dd class="mt-1 font-ui text-ink">{{ movie.runtime }}분</dd>
+          <dt class="text-sm tracking-[0.24px] text-slate">러닝타임</dt>
+          <dd class="mt-1 text-xl font-ui text-ink">{{ movie.runtime }}분</dd>
         </div>
       </dl>
 
