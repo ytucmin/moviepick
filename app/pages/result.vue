@@ -67,7 +67,8 @@ function repick() {
         {{ keywordParts[0]?.text }}<br class="hidden lg:inline" />
         <span class="lg:whitespace-nowrap">
           <template v-for="(p, i) in keywordParts.slice(1, -1)" :key="i">
-            <span v-if="p.em" class="text-[38px] text-primary min-[400px]:text-[40px] lg:text-[56px]">{{ p.text }}</span>
+            <!-- 보라색 문구는 가운데서 줄이 나뉘지 않게 (QA-04). 가장 긴 "숨막히는 심리 긴장감을"이 420px부터 한 줄에 들어가서 그 아래는 그대로 -->
+            <span v-if="p.em" class="text-[38px] text-primary min-[400px]:text-[40px] min-[420px]:whitespace-nowrap lg:text-[56px]">{{ p.text }}</span>
             <template v-else>{{ p.text }}</template>
           </template>
         </span>

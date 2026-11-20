@@ -111,7 +111,8 @@ function goResult() {
     </section>
 
     <!-- 인기 영화 바로 추가 (R1-7) -->
-    <section v-if="!query" class="mt-6">
+    <!-- 띄어쓰기만 입력해도 빈 검색으로 보고 인기 영화를 보여 준다 (QA-05) -->
+    <section v-if="!query.trim()" class="mt-6">
       <h2 class="text-sm font-eyebrow tracking-[0.28px] text-ink-secondary">인기 영화</h2>
       <div class="mt-3 flex flex-wrap gap-2">
         <PillButton
